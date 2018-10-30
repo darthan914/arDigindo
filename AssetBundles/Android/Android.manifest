@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 3952525772
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: good_mood_booth
+      Dependencies: {}
+    Info_1:
+      Name: bintang 1
+      Dependencies: {}
+    Info_2:
+      Name: pristine_booth
+      Dependencies: {}
