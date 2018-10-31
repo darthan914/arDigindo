@@ -25,9 +25,9 @@ public class AlignmentTools : MonoBehaviour {
 
     Bounds bounds;
 
-    private void Start()
+    private void Awake()
     {
-        if (target == null) target = transform.root.Find("Alignment Helper");
+        if (target == null) target = GameObject.Find("Alignment Helper").transform;
 
         RecalculateBoundsMesh();
         CreateHelper();
