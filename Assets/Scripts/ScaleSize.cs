@@ -28,7 +28,7 @@ public class ScaleSize : MonoBehaviour {
 
     public void GetSizeBounds()
     {
-        originDimension = (bounds.size * transform.root.localScale.x * 100 * transform.localScale.x);
+        originDimension = (bounds.size * transform.parent.parent.localScale.x * 100 * transform.localScale.x);
     }
 
     public void RecalculateBoundsCollider()
@@ -72,7 +72,7 @@ public class ScaleSize : MonoBehaviour {
         else
         {
             bounds = GetComponent<MeshFilter>().mesh.bounds;
-            // bounds.center = transform.localPosition;
+            //bounds.center = transform.localPosition;
         }
 
         Vector3 min = bounds.center;
@@ -84,7 +84,7 @@ public class ScaleSize : MonoBehaviour {
         {
             Vector3 pos = mf.transform.localPosition;
             Bounds child_bounds = mf.sharedMesh.bounds;
-            child_bounds.center += pos;
+            //child_bounds.center += pos;
             bounds.Encapsulate(child_bounds);
         }
         // bounds.size = new Vector3(bounds.size.x * transform.localScale.x, bounds.size.y * transform.localScale.y, bounds.size.z * transform.localScale.z);
@@ -112,13 +112,13 @@ public class ScaleSize : MonoBehaviour {
         transform.localScale = ScaleModifier() / globalScale;
     }
 
-    public void ValueChange(Vector3 dimension, float globalScale, string proposionalOn, bool proposional)
+    public void ValueChange(Vector3 dimension, float globalScale2, string proposionalOn, bool proposional)
     {
         Debug.Log("Value Change " + proposionalOn);
         float x = dimension.x;
         float y = dimension.y;
         float z = dimension.z;
-        float global = globalScale;
+        float global = globalScale2;
 
         if (proposional)
         {
@@ -150,13 +150,13 @@ public class ScaleSize : MonoBehaviour {
         GetComponent<AlignmentTools>().Snap();
     }
 
-    public void ValueChangePercent(Vector3 dimension, float globalScale, string proposionalOn, bool proposional)
+    public void ValueChangePercent(Vector3 dimension, float globalScale2, string proposionalOn, bool proposional)
     {
         Debug.Log("Value Change " + proposionalOn);
         float x = originDimension.x * (dimension.x / 100);
         float y = originDimension.y * (dimension.y / 100);
         float z = originDimension.z * (dimension.z / 100);
-        float global = globalScale;
+        float global = globalScale2;
 
         if (proposional)
         {

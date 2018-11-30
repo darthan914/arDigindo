@@ -16,24 +16,33 @@ public class LoadBundle : MonoBehaviour {
 
         ArModels = FindObjectOfType<ArModels>();
 
-        //importTo.parent.gameObject.SetActive(false);
-
-        string url = ArModels.assetBundle;
-        WWW www = new WWW(url);
-        StartCoroutine(WaitForRequest(www));
+        StartCoroutine(WaitForRequest(ArModels.assetBundle));
 	}
 	
-	IEnumerator WaitForRequest(WWW www)
+	IEnumerator WaitForRequest(string url)
     {
-        yield return www;
-        AssetBundle bundle = www.assetBundle;
+        while (!Caching.ready)
+            yield return null;
 
-        if(www.error == null)
+        using (WWW www = WWW.LoadFromCacheOrDownload(url, 0))
         {
+            yield return www;
+            if (!string.IsNullOrEmpty(www.error))
+            {
+                messages.text = www.error;
+                yield return null;
+            }
+            
+
+            var assetBundle = www.assetBundle;
+            
+
             messages.enabled = false;
-            //importTo.parent.gameObject.SetActive(true);
+
             importTo.parent.name = ArModels.nameProject;
-            GameObject go = Instantiate((GameObject)bundle.LoadAsset(ArModels.nameGameObject));
+            GameObject go = Instantiate((GameObject)assetBundle.LoadAsset(ArModels.nameGameObject));
+
+            go.transform.position = Vector3.zero;
 
             if (go.GetComponent<Renderer>()) go.GetComponent<Renderer>().enabled = false;
             if (go.GetComponent<Collider>()) go.GetComponent<Collider>().enabled = false;
@@ -58,10 +67,9 @@ public class LoadBundle : MonoBehaviour {
             go.transform.parent = importTo;
             go.AddComponent<AlignmentTools>();
             go.AddComponent<ScaleSize>();
-        }
-        else
-        {
-            messages.text = www.error;
+
+            assetBundle.Unload(false);
+
         }
     }
 }

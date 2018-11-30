@@ -7,8 +7,8 @@ using LitJson;
 
 public class ListModels : MonoBehaviour {
 
-    string url = "http://digindo.co.id/api/arModel";
-    string baseurl = "http://digindo.co.id/";
+    string url = "https://digindo.co.id/api/arModel";
+    string baseurl = "https://digindo.co.id/";
 
     List<GameObject> listButton = new List<GameObject>();
 
