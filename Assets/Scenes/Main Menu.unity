@@ -1052,7 +1052,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Masukan Email / Telephone
+  m_Text: Enter Key Code
 --- !u!222 &1600807526
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1572,7 +1572,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Masukan Email atau No Telepon
+  m_Text: Enter Key Code Field
 --- !u!222 &2105536023
 CanvasRenderer:
   m_ObjectHideFlags: 0

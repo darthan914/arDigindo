@@ -39,7 +39,7 @@ public class LoadBundle : MonoBehaviour {
 
             messages.enabled = false;
 
-            importTo.parent.name = ArModels.nameProject;
+            importTo.name = ArModels.nameProject;
             GameObject go = Instantiate((GameObject)assetBundle.LoadAsset(ArModels.nameGameObject));
 
             go.transform.position = Vector3.zero;
@@ -65,8 +65,6 @@ public class LoadBundle : MonoBehaviour {
                 component.enabled = false;
 
             go.transform.parent = importTo;
-            go.AddComponent<AlignmentTools>();
-            go.AddComponent<ScaleSize>();
 
             assetBundle.Unload(false);
 

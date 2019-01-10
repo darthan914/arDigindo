@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(ObjectController))]
 public class ScaleSize : MonoBehaviour {
-
-    public bool autoBounds = true;
 
     public Vector3 originDimension = Vector3.one;
     public Vector3 modifiedDimension;
@@ -28,66 +27,7 @@ public class ScaleSize : MonoBehaviour {
 
     public void GetSizeBounds()
     {
-        originDimension = (bounds.size * transform.parent.parent.localScale.x * 100 * transform.localScale.x);
-    }
-
-    public void RecalculateBoundsCollider()
-    {
-        if (GetComponent<Collider>() == null)
-        {
-            bounds = new Bounds(Vector3.zero, Vector3.zero);
-        }
-        else
-        {
-            bounds = GetComponent<Collider>().bounds;
-        }
-
-        Vector3 min = bounds.center;
-        Vector3 max = bounds.center;
-
-        Collider[] cols = GetComponentsInChildren<Collider>();
-
-        foreach (Collider collider in cols)
-        {
-            print(collider.name);
-            if (collider.bounds.min.x < min.x) min.x = collider.bounds.min.x;
-            if (collider.bounds.min.y < min.y) min.y = collider.bounds.min.y;
-            if (collider.bounds.min.z < min.z) min.z = collider.bounds.min.z;
-
-            if (collider.bounds.max.x > min.x) max.x = collider.bounds.max.x;
-            if (collider.bounds.max.y > min.y) max.y = collider.bounds.max.y;
-            if (collider.bounds.max.z > min.z) max.z = collider.bounds.max.z;
-        }
-
-        bounds = new Bounds(((min + max) / 2f), (max - min));
-    }
-
-    public void RecalculateBoundsMesh()
-    {
-
-        if (GetComponent<MeshFilter>() == null)
-        {
-            bounds = new Bounds(Vector3.zero, Vector3.zero);
-        }
-        else
-        {
-            bounds = GetComponent<MeshFilter>().mesh.bounds;
-            //bounds.center = transform.localPosition;
-        }
-
-        Vector3 min = bounds.center;
-        Vector3 max = bounds.center;
-
-        MeshFilter[] mfs = GetComponentsInChildren<MeshFilter>();
-
-        foreach (MeshFilter mf in mfs)
-        {
-            Vector3 pos = mf.transform.localPosition;
-            Bounds child_bounds = mf.sharedMesh.bounds;
-            //child_bounds.center += pos;
-            bounds.Encapsulate(child_bounds);
-        }
-        // bounds.size = new Vector3(bounds.size.x * transform.localScale.x, bounds.size.y * transform.localScale.y, bounds.size.z * transform.localScale.z);
+        originDimension = GetComponent<ObjectController>().GetSize() * transform.parent.parent.localScale.x * 100 * transform.localScale.x;
     }
 
     Vector3 ScaleModifier()
@@ -190,16 +130,10 @@ public class ScaleSize : MonoBehaviour {
 
     public void SetInit()
     {
-        if (autoBounds)
-        {
-            RecalculateBoundsMesh();
-            GetSizeBounds();
-        }
-
+        GetSizeBounds();
         modifiedDimension = originDimension;
         modifiedDimensionPercent = Vector3.one * 100;
         initScale = transform.localScale;
-        RecalculateBoundsMesh();
 
         // GetComponent<AlignmentTools>().Snap();
     }

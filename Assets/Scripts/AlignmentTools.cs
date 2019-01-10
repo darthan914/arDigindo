@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ObjectController))]
 public class AlignmentTools : MonoBehaviour {
 
 	public enum AlignmentType
@@ -29,66 +30,12 @@ public class AlignmentTools : MonoBehaviour {
     {
         if (target == null) target = GameObject.Find("Alignment Helper").transform;
 
-        RecalculateBoundsMesh();
+        bounds = GetComponent<ObjectController>().GetBounds();
+
         CreateHelper();
         Snap(alignment);
-        RecalculateBoundsMesh();
-    }
 
-    public void RecalculateBoundsCollider()
-    {
-        if (GetComponent<Collider>() == null)
-        {
-            bounds = new Bounds(Vector3.zero, Vector3.zero);
-        }
-        else
-        {
-            bounds = GetComponent<Collider>().bounds;
-        }
-
-        Vector3 min = bounds.min;
-        Vector3 max = bounds.max;
-
-        Collider[] cols = GetComponentsInChildren<Collider>();
-
-        foreach (Collider collider in cols)
-        {
-            if (collider.bounds.min.x < min.x) min.x = collider.bounds.min.x;
-            if (collider.bounds.min.y < min.y) min.y = collider.bounds.min.y;
-            if (collider.bounds.min.z < min.z) min.z = collider.bounds.min.z;
-
-            if (collider.bounds.max.x > max.x) max.x = collider.bounds.max.x;
-            if (collider.bounds.max.y > max.y) max.y = collider.bounds.max.y;
-            if (collider.bounds.max.z > max.z) max.z = collider.bounds.max.z;
-        }
-
-        bounds = new Bounds(((min + max) / 2f), (max - min));
-    }
-
-    public void RecalculateBoundsMesh()
-    {
-
-        if (GetComponent<MeshFilter>() == null)
-        {
-            bounds = new Bounds(Vector3.zero, Vector3.zero);
-        }
-        else
-        {
-            bounds = GetComponent<MeshFilter>().mesh.bounds;
-        }
-
-        Vector3 min = bounds.center;
-        Vector3 max = bounds.center;
-
-        MeshFilter[] mfs = GetComponentsInChildren<MeshFilter>();
-
-        foreach (MeshFilter mf in mfs)
-        {
-            Vector3 pos = mf.transform.localPosition;
-            Bounds child_bounds = mf.sharedMesh.bounds;
-            child_bounds.center += pos;
-            bounds.Encapsulate(child_bounds);
-        }
+        
     }
 
     public void Snap()
@@ -97,31 +44,31 @@ public class AlignmentTools : MonoBehaviour {
         switch (alignment)
         {
             case AlignmentType.Center:
-                Alignment("center");
+                Alignment("Center");
                 break;
             case AlignmentType.Top:
-                Alignment("top");
+                Alignment("Top");
                 break;
             case AlignmentType.Bottom:
-                Alignment("bottom");
+                Alignment("Bottom");
                 break;
             case AlignmentType.Left:
-                Alignment("left");
+                Alignment("Left");
                 break;
             case AlignmentType.Right:
-                Alignment("right");
+                Alignment("Right");
                 break;
             case AlignmentType.TopLeft:
-                Alignment("top left");
+                Alignment("Top Left");
                 break;
             case AlignmentType.TopRight:
-                Alignment("top right");
+                Alignment("Top Right");
                 break;
             case AlignmentType.BottomLeft:
-                Alignment("bottom left");
+                Alignment("Bottom Left");
                 break;
             case AlignmentType.BottomRight:
-                Alignment("bottom right");
+                Alignment("Bottom Right");
                 break;
         }
 
@@ -133,31 +80,31 @@ public class AlignmentTools : MonoBehaviour {
         switch (alignmentTo)
         {
             case AlignmentType.Center:
-                Alignment("center");
+                Alignment("Center");
                 break;
             case AlignmentType.Top:
-                Alignment("top");
+                Alignment("Top");
                 break;
             case AlignmentType.Bottom:
-                Alignment("bottom");
+                Alignment("Bottom");
                 break;
             case AlignmentType.Left:
-                Alignment("left");
+                Alignment("Left");
                 break;
             case AlignmentType.Right:
-                Alignment("right");
+                Alignment("Right");
                 break;
             case AlignmentType.TopLeft:
-                Alignment("top left");
+                Alignment("Top Left");
                 break;
             case AlignmentType.TopRight:
-                Alignment("top right");
+                Alignment("Top Right");
                 break;
             case AlignmentType.BottomLeft:
-                Alignment("bottom left");
+                Alignment("Bottom Left");
                 break;
             case AlignmentType.BottomRight:
-                Alignment("bottom right");
+                Alignment("Bottom Right");
                 break;
         }
 
@@ -170,78 +117,42 @@ public class AlignmentTools : MonoBehaviour {
         switch (alignmentTo)
         {
             case 5:
-                Alignment("center");
+                Alignment("Center");
                 alignment = AlignmentType.Center;
                 break;
             case 8:
-                Alignment("top");
+                Alignment("Top");
                 alignment = AlignmentType.Top;
                 break;
             case 2:
-                Alignment("bottom");
+                Alignment("Bottom");
                 alignment = AlignmentType.Bottom;
                 break;
             case 4:
-                Alignment("left");
+                Alignment("Left");
                 alignment = AlignmentType.Left;
                 break;
             case 6:
-                Alignment("right");
+                Alignment("Right");
                 alignment = AlignmentType.Right;
                 break;
             case 7:
-                Alignment("top left");
+                Alignment("Top Left");
                 alignment = AlignmentType.TopLeft;
                 break;
             case 9:
-                Alignment("top right");
+                Alignment("Top Right");
                 alignment = AlignmentType.TopRight;
                 break;
             case 1:
-                Alignment("bottom left");
+                Alignment("Bottom Left");
                 alignment = AlignmentType.BottomLeft;
                 break;
             case 3:
-                Alignment("bottom right");
+                Alignment("Bottom Right");
                 alignment = AlignmentType.BottomRight;
                 break;
         }
-    }
-
-    void DebugBounds(Bounds bounds)
-    {
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z), new Vector3(bounds.max.x, bounds.min.y, bounds.min.z));
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.min.y, bounds.min.z), new Vector3(bounds.max.x, bounds.max.y, bounds.min.z));
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.max.y, bounds.min.z), new Vector3(bounds.min.x, bounds.max.y, bounds.min.z));
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.max.y, bounds.min.z), new Vector3(bounds.min.x, bounds.min.y, bounds.min.z));
-
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.min.y, bounds.max.z), new Vector3(bounds.max.x, bounds.min.y, bounds.max.z));
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.min.y, bounds.max.z), new Vector3(bounds.max.x, bounds.max.y, bounds.max.z));
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.max.y, bounds.max.z), new Vector3(bounds.min.x, bounds.max.y, bounds.max.z));
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.max.y, bounds.max.z), new Vector3(bounds.min.x, bounds.min.y, bounds.max.z));
-
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z), new Vector3(bounds.min.x, bounds.min.y, bounds.max.z));
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.min.y, bounds.min.z), new Vector3(bounds.max.x, bounds.min.y, bounds.max.z));
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.max.y, bounds.min.z), new Vector3(bounds.max.x, bounds.max.y, bounds.max.z));
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.max.y, bounds.min.z), new Vector3(bounds.min.x, bounds.max.y, bounds.max.z));
-    }
-
-    void DebugBounds(Bounds bounds, Color color)
-    {
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z), new Vector3(bounds.max.x, bounds.min.y, bounds.min.z), color);
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.min.y, bounds.min.z), new Vector3(bounds.max.x, bounds.max.y, bounds.min.z), color);
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.max.y, bounds.min.z), new Vector3(bounds.min.x, bounds.max.y, bounds.min.z), color);
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.max.y, bounds.min.z), new Vector3(bounds.min.x, bounds.min.y, bounds.min.z), color);
-
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.min.y, bounds.max.z), new Vector3(bounds.max.x, bounds.min.y, bounds.max.z), color);
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.min.y, bounds.max.z), new Vector3(bounds.max.x, bounds.max.y, bounds.max.z), color);
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.max.y, bounds.max.z), new Vector3(bounds.min.x, bounds.max.y, bounds.max.z), color);
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.max.y, bounds.max.z), new Vector3(bounds.min.x, bounds.min.y, bounds.max.z), color);
-
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z), new Vector3(bounds.min.x, bounds.min.y, bounds.max.z), color);
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.min.y, bounds.min.z), new Vector3(bounds.max.x, bounds.min.y, bounds.max.z), color);
-        Debug.DrawLine(new Vector3(bounds.max.x, bounds.max.y, bounds.min.z), new Vector3(bounds.max.x, bounds.max.y, bounds.max.z), color);
-        Debug.DrawLine(new Vector3(bounds.min.x, bounds.max.y, bounds.min.z), new Vector3(bounds.min.x, bounds.max.y, bounds.max.z), color);
     }
 
     void Alignment(string alignment)
@@ -259,55 +170,55 @@ public class AlignmentTools : MonoBehaviour {
     {
         //current alignment object
         // center
-        GameObject centerCurrent = new GameObject("center");
+        GameObject centerCurrent = new GameObject("Center");
         centerCurrent.transform.position = new Vector3(bounds.center.x, bounds.min.y, bounds.center.z);
         centerCurrent.transform.parent = transform;
         alignmentHelper.Add(centerCurrent);
 
         // top
-        GameObject topCurrent = new GameObject("top");
+        GameObject topCurrent = new GameObject("Top");
         topCurrent.transform.position = new Vector3(bounds.center.x, bounds.min.y, bounds.max.z);
         topCurrent.transform.parent = transform;
         alignmentHelper.Add(topCurrent);
 
         // bottom
-        GameObject bottomCurrent = new GameObject("bottom");
+        GameObject bottomCurrent = new GameObject("Bottom");
         bottomCurrent.transform.position = new Vector3(bounds.center.x, bounds.min.y, bounds.min.z);
         bottomCurrent.transform.parent = transform;
         alignmentHelper.Add(bottomCurrent);
 
         // left
-        GameObject leftCurrent = new GameObject("left");
+        GameObject leftCurrent = new GameObject("Left");
         leftCurrent.transform.position = new Vector3(bounds.min.x, bounds.min.y, bounds.center.z);
         leftCurrent.transform.parent = transform;
         alignmentHelper.Add(leftCurrent);
 
         // right
-        GameObject rightCurrent = new GameObject("right");
+        GameObject rightCurrent = new GameObject("Right");
         rightCurrent.transform.position = new Vector3(bounds.max.x, bounds.min.y, bounds.center.z);
         rightCurrent.transform.parent = transform;
         alignmentHelper.Add(rightCurrent);
 
         // top left
-        GameObject topLeftCurrent = new GameObject("top left");
+        GameObject topLeftCurrent = new GameObject("Top Left");
         topLeftCurrent.transform.position = new Vector3(bounds.min.x, bounds.min.y, bounds.max.z);
         topLeftCurrent.transform.parent = transform;
         alignmentHelper.Add(topLeftCurrent);
 
         // top right
-        GameObject topRightCurrent = new GameObject("top right");
+        GameObject topRightCurrent = new GameObject("Top Right");
         topRightCurrent.transform.position = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
         topRightCurrent.transform.parent = transform;
         alignmentHelper.Add(topRightCurrent);
 
         // bottom left
-        GameObject bottomLeftCurrent = new GameObject("bottom left");
+        GameObject bottomLeftCurrent = new GameObject("Bottom Left");
         bottomLeftCurrent.transform.position = new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
         bottomLeftCurrent.transform.parent = transform;
         alignmentHelper.Add(bottomLeftCurrent);
 
         // bottom right
-        GameObject bottomRightCurrent = new GameObject("bottom right");
+        GameObject bottomRightCurrent = new GameObject("Bottom Right");
         bottomRightCurrent.transform.position = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
         bottomRightCurrent.transform.parent = transform;
         alignmentHelper.Add(bottomRightCurrent);

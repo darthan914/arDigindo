@@ -26,7 +26,7 @@ public class ListModels : MonoBehaviour {
 
     public void GetList()
     {
-        messages.text = "Memuat...";
+        messages.text = "Loading...";
         ArModels sceneMaster = FindObjectOfType<ArModels>();
 
         sceneMaster.oldInput = find.text;
@@ -73,11 +73,11 @@ public class ListModels : MonoBehaviour {
 
                 if(data["data"]["index"].Count == 0)
                 {
-                    messages.text = "Tidak Ada Data";
+                    messages.text = "Not Found";
                 }
                 else
                 {
-                    messages.text = "Data Ditemukan. Total : " + data["data"]["index"].Count.ToString();
+                    messages.text = "Data Found. Total : " + data["data"]["index"].Count.ToString();
                 }
             }
         }
