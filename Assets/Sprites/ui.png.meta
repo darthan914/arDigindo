@@ -12,6 +12,9 @@ TextureImporter:
     21300010: ui_5
     21300012: ui_6
     21300014: ui_7
+    21300016: ui_8
+    21300018: ui_9
+    21300020: ui_10
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -101,12 +104,12 @@ TextureImporter:
       name: ui_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 663
-        width: 585
-        height: 586
+        x: 11
+        y: 1342
+        width: 586
+        height: 587
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -115,12 +118,12 @@ TextureImporter:
       name: ui_1
       rect:
         serializedVersion: 2
-        x: 688
-        y: 678
-        width: 588
+        x: 681
+        y: 1357
+        width: 589
         height: 587
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,12 +132,12 @@ TextureImporter:
       name: ui_2
       rect:
         serializedVersion: 2
-        x: 1341
-        y: 676
-        width: 586
-        height: 587
+        x: 1359
+        y: 1355
+        width: 587
+        height: 591
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -143,12 +146,12 @@ TextureImporter:
       name: ui_3
       rect:
         serializedVersion: 2
-        x: 2030
-        y: 687
-        width: 588
-        height: 585
+        x: 2036
+        y: 1365
+        width: 586
+        height: 586
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,12 +160,12 @@ TextureImporter:
       name: ui_4
       rect:
         serializedVersion: 2
-        x: 5
-        y: 19
-        width: 587
+        x: 11
+        y: 670
+        width: 586
         height: 586
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,12 +174,12 @@ TextureImporter:
       name: ui_5
       rect:
         serializedVersion: 2
-        x: 707
-        y: 19
+        x: 681
+        y: 670
         width: 587
         height: 586
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -185,12 +188,12 @@ TextureImporter:
       name: ui_6
       rect:
         serializedVersion: 2
-        x: 1384
-        y: 16
-        width: 586
-        height: 587
+        x: 1359
+        y: 670
+        width: 588
+        height: 588
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -199,10 +202,52 @@ TextureImporter:
       name: ui_7
       rect:
         serializedVersion: 2
-        x: 2088
+        x: 2036
+        y: 670
+        width: 586
+        height: 586
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ui_8
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
-        width: 585
-        height: 585
+        width: 586
+        height: 586
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ui_9
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 0
+        width: 587
+        height: 586
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ui_10
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 0
+        width: 587
+        height: 586
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

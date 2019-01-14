@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
 
     public List<GameObject> targets = new List<GameObject>();
+    public Transform targetRotate;
 
     public Text nameText;
     public Text scaleText;
@@ -18,6 +19,8 @@ public class UIController : MonoBehaviour {
     public InputField yInputPercent;
     public InputField zInputPercent;
 
+    public Scrollbar rotation;
+
     public InputField scaleInput;
 
     public Toggle proposional;
@@ -25,6 +28,9 @@ public class UIController : MonoBehaviour {
     public Dropdown list;
 
     private int index;
+    [HideInInspector] public Vector3 initPosition;
+    [HideInInspector] public Quaternion initRotation;
+    [HideInInspector] public Vector3 initScale;
 
     private void Start()
     {
@@ -40,7 +46,29 @@ public class UIController : MonoBehaviour {
 
         list.onValueChanged.AddListener(delegate { SetIndexController(); });
 
+        initPosition = targetRotate.localPosition;
+        initRotation = targetRotate.localRotation;
+        initScale = targetRotate.localScale;
+
         ClearInputObject();
+    }
+
+    private void Update()
+    {
+        targetRotate.Rotate(Vector3.up, Mathf.Lerp(3, -3, rotation.value));
+
+        
+        //targetRotate.rotation = Quaternion.Euler(targetRotate.parent.eulerAngles.x, Mathf.Lerp(-360, 360, rotation.value), targetRotate.parent.eulerAngles.z);
+    }
+
+    public void ScreenShot()
+    {
+        ScreenCapture.CaptureScreenshot("arDigindo-" + System.DateTime.Now.ToString());
+    }
+
+    public void ResetScrollbar()
+    {
+        rotation.value = 0.5f;
     }
 
 
@@ -119,8 +147,8 @@ public class UIController : MonoBehaviour {
 
     void ClearInputObject()
     {
-        nameText.text = "Searching...";
-        scaleText.text = "- : -";
+        if(nameText) nameText.text = "Searching...";
+        if(scaleText) scaleText.text = "- : -";
 
         xInput.text = "";
         yInput.text = "";
@@ -146,6 +174,10 @@ public class UIController : MonoBehaviour {
 
         targets[index].GetComponentInChildren<ScaleSize>().ResetScale();
         targets[index].GetComponentInChildren<AlignmentTools>().Snap(5);
+
+        targetRotate.localPosition = initPosition;
+        targetRotate.localRotation = initRotation;
+        targetRotate.localScale = targets[index].GetComponentInChildren<ScaleSize>().initScale;
 
         SyncInputObject();
     }

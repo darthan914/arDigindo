@@ -42,6 +42,10 @@ public class LoadBundle : MonoBehaviour {
             importTo.name = ArModels.nameProject;
             GameObject go = Instantiate((GameObject)assetBundle.LoadAsset(ArModels.nameGameObject));
 
+            FindObjectOfType<UIController>().targetRotate = go.transform;
+            FindObjectOfType<UIController>().initPosition = go.transform.localPosition;
+            FindObjectOfType<UIController>().initRotation = go.transform.localRotation;
+
             go.transform.position = Vector3.zero;
 
             if (go.GetComponent<Renderer>()) go.GetComponent<Renderer>().enabled = false;

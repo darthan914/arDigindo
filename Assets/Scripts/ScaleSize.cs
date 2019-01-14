@@ -20,14 +20,9 @@ public class ScaleSize : MonoBehaviour {
         SetInit();
     }
 
-    private void Update()
-    {
-        DebugBounds(bounds, Color.yellow);
-    }
-
     public void GetSizeBounds()
     {
-        originDimension = GetComponent<ObjectController>().GetSize() * transform.parent.parent.localScale.x * 100 * transform.localScale.x;
+        originDimension = GetComponent<ObjectController>().GetSize() * 100;
     }
 
     Vector3 ScaleModifier()

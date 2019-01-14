@@ -160,6 +160,7 @@ public class AlignmentTools : MonoBehaviour {
         alignmentHelper.Find(x => (x.name == alignment)).transform.parent = transform.parent;
         transform.parent = alignmentHelper.Find(x => (x.name == alignment)).transform;
 
+        if (target.Find(alignment) == null) return;
         alignmentHelper.Find(x => (x.name == alignment)).transform.position = target.Find(alignment).transform.position;
 
         transform.parent = transform.parent.parent;
