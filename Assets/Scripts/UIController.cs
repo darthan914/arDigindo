@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour {
 
     public Text nameText;
     public Text scaleText;
+    public Text messagesText;
 
     public InputField xInput;
     public InputField yInput;
@@ -63,7 +64,14 @@ public class UIController : MonoBehaviour {
 
     public void ScreenShot()
     {
-        ScreenCapture.CaptureScreenshot("arDigindo-" + System.DateTime.Now.ToString());
+        string messages = ScreenshotHandler.TakeScreenshot_Static(Screen.width, Screen.height);
+        if (messagesText)
+        {
+            messagesText.enabled = true;
+            messagesText.text = messages;
+        }
+
+        StartCoroutine("DisableMessage");
     }
 
     public void ResetScrollbar()
@@ -150,15 +158,15 @@ public class UIController : MonoBehaviour {
         if(nameText) nameText.text = "Searching...";
         if(scaleText) scaleText.text = "- : -";
 
-        xInput.text = "";
-        yInput.text = "";
-        zInput.text = "";
+        if (xInput) xInput.text = "";
+        if (yInput) yInput.text = "";
+        if (zInput) zInput.text = "";
 
-        xInputPercent.text = "";
-        yInputPercent.text = "";
-        zInputPercent.text = "";
+        if (xInputPercent) xInputPercent.text = "";
+        if (yInputPercent) yInputPercent.text = "";
+        if (zInputPercent) zInputPercent.text = "";
 
-        scaleInput.text = "";
+        if (scaleInput) scaleInput.text = "";
     }
 
     public void Alignment(int alignment)
@@ -215,5 +223,12 @@ public class UIController : MonoBehaviour {
         targets[index].GetComponentInChildren<ScaleSize>().ValueChangePercent(dimension, scale, on, proposional.isOn);
 
         SyncInputObject();
+    }
+
+    IEnumerator DisableMessage()
+    {
+        yield return new WaitForSeconds(5);
+        messagesText.enabled = false;
+        StopCoroutine("DisableMessage");
     }
 }

@@ -2106,7 +2106,7 @@ GameObject:
   - component: {fileID: 1367655258}
   - component: {fileID: 1367655257}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Messages Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2215,6 +2215,7 @@ MonoBehaviour:
   targetRotate: {fileID: 2092084485}
   nameText: {fileID: 1181705973}
   scaleText: {fileID: 1181705972}
+  messagesText: {fileID: 1367655258}
   xInput: {fileID: 1181705971}
   yInput: {fileID: 1181705970}
   zInput: {fileID: 1181705969}
@@ -2309,6 +2310,7 @@ GameObject:
   - component: {fileID: 1956262299}
   - component: {fileID: 1956262298}
   - component: {fileID: 1956262297}
+  - component: {fileID: 1956262302}
   m_Layer: 0
   m_Name: ARCamera
   m_TagString: Untagged
@@ -2397,6 +2399,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1956262302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1956262296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db4831f7b38255409e445ca347f5612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1994078570
 GameObject:
   m_ObjectHideFlags: 0

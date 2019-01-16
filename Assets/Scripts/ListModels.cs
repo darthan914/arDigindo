@@ -66,12 +66,18 @@ public class ListModels : MonoBehaviour {
                     btn.transform.Find("Text").GetComponent<Text>().text = data["data"]["index"][i]["name"].GetString();
                     btn.transform.GetComponent<GoToScene>().nameProject = data["data"]["index"][i]["name"].GetString();
                     btn.transform.GetComponent<GoToScene>().nameGameObject = data["data"]["index"][i]["name_game_object"].GetString();
-                    btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle"].GetString();
 
-                    
+#if UNITY_EDITOR || UNITY_ANDROID
+                    btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle"].GetString();
+#endif
+#if UNITY_IOS
+                    btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle_ios"].GetString();
+#endif
+
+
                 }
 
-                if(data["data"]["index"].Count == 0)
+                if (data["data"]["index"].Count == 0)
                 {
                     messages.text = "Not Found";
                 }
