@@ -67,11 +67,12 @@ public class ListModels : MonoBehaviour {
                     btn.transform.GetComponent<GoToScene>().nameProject = data["data"]["index"][i]["name"].GetString();
                     btn.transform.GetComponent<GoToScene>().nameGameObject = data["data"]["index"][i]["name_game_object"].GetString();
 
-#if UNITY_EDITOR || UNITY_ANDROID
-                    btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle"].GetString();
-#endif
-#if UNITY_IOS
+#if UNITY_ANDROID
+                    btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle_android"].GetString();
+#elif UNITY_IOS
                     btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle_ios"].GetString();
+#else
+                    btn.transform.GetComponent<GoToScene>().assetBundle = baseurl + data["data"]["index"][i]["asset_bundle"].GetString();
 #endif
 
 
